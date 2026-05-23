@@ -83,8 +83,8 @@ export default function Home() {
           📢 공지사항
         </h2>
         {[
-          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.15", id: "1" },
           { title: "플랫폼 사용방법 안내", date: "2026.05.15", id: "2" },
+          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.15", id: "1" },
           { title: "학년별 보드 사용 방법 공지", date: "2026.05.15", id: "3" }
         ].map((notice, i) => (
           <a key={i} href={`/notice/${notice.id}`} style={{ textDecoration: "none" }}>
