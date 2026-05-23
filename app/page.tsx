@@ -3,15 +3,7 @@ export default function Home() {
     <main style={{ fontFamily: "sans-serif", background: "#f0f4ff", minHeight: "100vh" }}>
 
       {/* 헤더 */}
-      <nav style={{
-        background: "white",
-        padding: "0 48px",
-        height: "64px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderBottom: "1px solid #e8ecf5"
-      }}>
+      <nav style={{ background: "white", padding: "0 48px", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: "1px solid #e8ecf5" }}>
         <span style={{ color: "#1E3A5F", fontSize: "18px", fontWeight: "bold" }}>
           🏛️ 대의원회 통합 플랫폼
         </span>
@@ -43,7 +35,7 @@ export default function Home() {
       <section style={{ display: "flex", gap: "20px", padding: "0 48px 40px" }}>
         {[
           { icon: "📅", label: "이번 주 일정", value: "3개" },
-          { icon: "👥", label: "전체 대의원", value: "24명" },
+          { icon: "👥", label: "전체 대의원", value: "40명" },
           { icon: "🏛️", label: "다음 대의원회", value: "D-9" }
         ].map((card, i) => (
           <div key={i} style={{ flex: 1, background: "white", borderRadius: "16px", padding: "28px", display: "flex", alignItems: "center", gap: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
@@ -62,17 +54,19 @@ export default function Home() {
           📢 공지사항
         </h2>
         {[
-          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.20" },
-          { title: "플랫폼 사용방법 안내", date: "2026.05.18" },
-          { title: "학년별 보드 사용 방법 공지", date: "2026.05.15" }
+          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.20", id: "1" },
+          { title: "플랫폼 사용방법 안내", date: "2026.05.18", id: "2" },
+          { title: "학년별 보드 사용 방법 공지", date: "2026.05.15", id: "3" }
         ].map((notice, i) => (
-          <div key={i} style={{ background: "white", borderRadius: "12px", padding: "20px 24px", borderLeft: "4px solid #2B7FFF", marginBottom: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", cursor: "pointer" }}>
-            <span style={{ fontSize: "15px", fontWeight: "500", color: "#1E3A5F" }}>{notice.title}</span>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <span style={{ fontSize: "13px", color: "#aaa" }}>{notice.date}</span>
-              <span style={{ color: "#2B7FFF" }}>›</span>
+          <a key={i} href={`/notice/${notice.id}`} style={{ textDecoration: "none" }}>
+            <div style={{ background: "white", borderRadius: "12px", padding: "20px 24px", borderLeft: "4px solid #2B7FFF", marginBottom: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", cursor: "pointer" }}>
+              <span style={{ fontSize: "15px", fontWeight: "500", color: "#1E3A5F" }}>{notice.title}</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <span style={{ fontSize: "13px", color: "#aaa" }}>{notice.date}</span>
+                <span style={{ color: "#2B7FFF" }}>›</span>
+              </div>
             </div>
-          </div>
+          </a>
         ))}
       </section>
 
