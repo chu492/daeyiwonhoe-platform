@@ -36,7 +36,7 @@ export default function Home() {
         {[
           { icon: "📅", label: "이번 주 일정", value: "3개" },
           { icon: "👥", label: "전체 대의원", value: "40명" },
-          { icon: "🏛️", label: "다음 대의원회", value: "D-9" }
+          { icon: "🏛️", label: "다음 대의원회 회의", value: "D-9" }
         ].map((card, i) => (
           <div key={i} style={{ flex: 1, background: "white", borderRadius: "16px", padding: "28px", display: "flex", alignItems: "center", gap: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
             <span style={{ fontSize: "36px" }}>{card.icon}</span>

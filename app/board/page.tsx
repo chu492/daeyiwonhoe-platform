@@ -3,50 +3,21 @@ import { useState } from "react";
 
 export default function Board() {
   const [grades, setGrades] = useState([
-    {
-      grade: "1학년", color: "#2B7FFF", emoji: "🟦", count: 3,
-      tasks: [
-        { title: "5월 정기회의 참석", date: "2026.05.28", status: "예정", statusColor: "#2B7FFF" },
-        { title: "1학년 학급 의견 수렴", date: "2026.05.25", status: "완료", statusColor: "#52c97a" },
-        { title: "체육대회 1학년 대표 선정", date: "2026.06.01", status: "진행중", statusColor: "#FFB347" },
-      ]
-    },
-    {
-      grade: "2학년", color: "#52c97a", emoji: "🟩", count: 3,
-      tasks: [
-        { title: "5월 정기회의 참석", date: "2026.05.28", status: "예정", statusColor: "#2B7FFF" },
-        { title: "수련활동 기획안 제출", date: "2026.05.30", status: "진행중", statusColor: "#FFB347" },
-        { title: "2학년 설문조사 진행", date: "2026.05.22", status: "완료", statusColor: "#52c97a" },
-      ]
-    },
-    {
-      grade: "3학년", color: "#FF6B6B", emoji: "🟥", count: 3,
-      tasks: [
-        { title: "5월 정기회의 참석", date: "2026.05.28", status: "예정", statusColor: "#2B7FFF" },
-        { title: "졸업앨범 의견 수렴", date: "2026.06.05", status: "예정", statusColor: "#2B7FFF" },
-        { title: "3학년 자치 활동 기획", date: "2026.05.20", status: "완료", statusColor: "#52c97a" },
-      ]
-    },
+    { grade: "1학년", color: "#2B7FFF", emoji: "🟦", tasks: [] as {title: string, date: string}[] },
+    { grade: "2학년", color: "#52c97a", emoji: "🟩", tasks: [] as {title: string, date: string}[] },
+    { grade: "3학년", color: "#FF6B6B", emoji: "🟥", tasks: [] as {title: string, date: string}[] },
   ]);
 
   const [showForm, setShowForm] = useState<number | null>(null);
   const [newTitle, setNewTitle] = useState("");
   const [newDate, setNewDate] = useState("");
-  const [newStatus, setNewStatus] = useState("예정");
-
-  const statusColors: { [key: string]: string } = {
-    "예정": "#2B7FFF", "진행중": "#FFB347", "완료": "#52c97a"
-  };
 
   const handleAdd = (gradeIndex: number) => {
     if (!newTitle || !newDate) return;
     const updated = [...grades];
-    updated[gradeIndex].tasks.push({
-      title: newTitle, date: newDate,
-      status: newStatus, statusColor: statusColors[newStatus]
-    });
+    updated[gradeIndex].tasks.push({ title: newTitle, date: newDate });
     setGrades(updated);
-    setNewTitle(""); setNewDate(""); setNewStatus("예정");
+    setNewTitle(""); setNewDate("");
     setShowForm(null);
   };
 
@@ -68,28 +39,22 @@ export default function Board() {
       <section style={{ padding: "0 48px 48px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "20px" }}>
         {grades.map((col, i) => (
           <div key={i} style={{ background: "white", borderRadius: "16px", padding: "20px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px", paddingBottom: "12px", borderBottom: "2px solid #f0f4ff" }}>
+            <div style={{ marginBottom: "16px", paddingBottom: "12px", borderBottom: "2px solid #f0f4ff" }}>
               <span style={{ fontSize: "16px", fontWeight: "800", color: "#1E3A5F" }}>{col.emoji} {col.grade} 대의원</span>
-              <span style={{ background: col.color, color: "white", fontSize: "11px", padding: "2px 8px", borderRadius: "10px", fontWeight: "700" }}>{col.count}명</span>
             </div>
+            {col.tasks.length === 0 && (
+              <div style={{ textAlign: "center", padding: "24px", color: "#aaa", fontSize: "13px" }}>등록된 업무가 없어요</div>
+            )}
             {col.tasks.map((task, j) => (
               <div key={j} style={{ background: "#f0f4ff", borderRadius: "10px", padding: "14px 16px", marginBottom: "10px", borderLeft: `3px solid ${col.color}` }}>
-                <div style={{ fontSize: "13px", fontWeight: "600", color: "#1E3A5F", marginBottom: "6px" }}>{task.title}</div>
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <span style={{ fontSize: "11px", color: "#888" }}>{task.date}</span>
-                  <span style={{ fontSize: "11px", padding: "2px 8px", borderRadius: "8px", fontWeight: "600", background: task.statusColor + "20", color: task.statusColor }}>{task.status}</span>
-                </div>
+                <div style={{ fontSize: "13px", fontWeight: "600", color: "#1E3A5F", marginBottom: "4px" }}>{task.title}</div>
+                <div style={{ fontSize: "11px", color: "#888" }}>{task.date}</div>
               </div>
             ))}
             {showForm === i && (
               <div style={{ background: "#f8faff", borderRadius: "10px", padding: "14px", marginBottom: "10px" }}>
                 <input type="text" placeholder="업무 제목" value={newTitle} onChange={e => setNewTitle(e.target.value)} style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", border: "1px solid #ddd", fontSize: "13px", marginBottom: "8px" }} />
                 <input type="date" value={newDate} onChange={e => setNewDate(e.target.value)} style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", border: "1px solid #ddd", fontSize: "13px", marginBottom: "8px" }} />
-                <select value={newStatus} onChange={e => setNewStatus(e.target.value)} style={{ width: "100%", padding: "8px 12px", borderRadius: "6px", border: "1px solid #ddd", fontSize: "13px", marginBottom: "8px" }}>
-                  <option>예정</option>
-                  <option>진행중</option>
-                  <option>완료</option>
-                </select>
                 <div style={{ display: "flex", gap: "8px" }}>
                   <button onClick={() => handleAdd(i)} style={{ flex: 1, padding: "8px", borderRadius: "6px", background: col.color, color: "white", border: "none", fontSize: "13px", cursor: "pointer", fontWeight: "bold" }}>추가</button>
                   <button onClick={() => setShowForm(null)} style={{ flex: 1, padding: "8px", borderRadius: "6px", background: "#eee", color: "#888", border: "none", fontSize: "13px", cursor: "pointer" }}>취소</button>

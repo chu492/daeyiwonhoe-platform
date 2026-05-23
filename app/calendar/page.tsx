@@ -18,13 +18,7 @@ export default function Calendar() {
     "생활혁신부": "#06B6D4",
   };
 
-  const [events, setEvents] = useState([
-    { date: "2026.05.28", title: "5월 정기 대의원회 회의", department: "대의원회", color: "#2B7FFF" },
-    { date: "2026.05.30", title: "수학 경시대회", department: "학습성장부", color: "#52c97a" },
-    { date: "2026.06.05", title: "체육대회 준비 회의", department: "어울림부", color: "#FFB347" },
-    { date: "2026.06.10", title: "지역 봉사활동", department: "생활혁신부", color: "#06B6D4" },
-    { date: "2026.06.18", title: "독서 토론 대회", department: "인사이트부", color: "#A78BFA" },
-  ]);
+  const [events, setEvents] = useState<{date: string, title: string, department: string, color: string}[]>([]);
 
   const filtered = selected === "전체" ? events : events.filter(e => e.department === selected);
 
