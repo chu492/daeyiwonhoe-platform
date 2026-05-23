@@ -21,11 +21,7 @@ export default function Notice3() {
           <h3 style={{ color: "#1E3A5F", marginBottom: "12px" }}>💡 사용 방법</h3>
           <p>1. 상단 메뉴에서 <strong>학년별 보드</strong> 클릭</p>
           <p>2. 해당 학년 열 하단의 <strong>+ 업무 추가</strong> 클릭</p>
-          <p>3. 업무 제목, 날짜, 상태 입력 후 추가</p><br/>
-          <h3 style={{ color: "#1E3A5F", marginBottom: "12px" }}>📌 상태 표시</h3>
-          <p>• <strong style={{ color: "#2B7FFF" }}>예정</strong> — 아직 시작 전인 업무</p>
-          <p>• <strong style={{ color: "#FFB347" }}>진행중</strong> — 현재 진행 중인 업무</p>
-          <p>• <strong style={{ color: "#52c97a" }}>완료</strong> — 완료된 업무</p><br/>
+          <p>3. 업무 제목과 날짜 입력 후 추가</p><br/>
           <p>각 학년 대의원은 본인 학년 열에 업무를 꼭 등록해주세요! 😊</p>
         </div>
       </section>

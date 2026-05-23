@@ -13,7 +13,7 @@ export default function Notice2() {
         <h1 style={{ color: "#1E3A5F", fontSize: "28px", fontWeight: "900", margin: "24px 0 8px" }}>플랫폼 사용방법 안내</h1>
         <p style={{ color: "#aaa", fontSize: "13px", marginBottom: "32px" }}>2026.05.18 · 대의원회</p>
         <div style={{ background: "white", borderRadius: "16px", padding: "32px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", lineHeight: "1.8", color: "#333", fontSize: "15px" }}>
-          <p>안녕하세요, 대의원회입니다.</p><br/>
+          <p>안녕하세요, 대의원회 통합 플랫폼입니다.</p><br/>
           <p>대의원회 통합 플랫폼 사용 방법을 안내드립니다.</p><br/>
           <h3 style={{ color: "#1E3A5F", marginBottom: "12px" }}>🏛️ 플랫폼 구성</h3>
           <p>• <strong>메인 홈</strong> — 공지사항 및 주요 현황 확인</p>
