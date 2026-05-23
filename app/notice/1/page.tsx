@@ -14,7 +14,7 @@ export default function Notice1() {
         <p style={{ color: "#aaa", fontSize: "13px", marginBottom: "32px" }}>2026.05.20 · 대의원회</p>
         <div style={{ background: "white", borderRadius: "16px", padding: "32px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", lineHeight: "1.8", color: "#333", fontSize: "15px" }}>
           <p>안녕하세요, 대의원회 통합 플랫폼입니다.</p><br/>
-          <p>이번에 도입된 <strong>공동 캘린더</strong> 사용 방법을 안내드립니다.</p><br/>
+          <p><strong>공동 캘린더</strong> 사용 방법을 안내드립니다.</p><br/>
           <h3 style={{ color: "#1E3A5F", marginBottom: "12px" }}>📌 등록 규칙</h3>
           <p>• 모든 행사 및 방송 일정은 <strong>2주 전까지</strong> 반드시 등록해주세요.</p>
           <p>• 일정 등록 시 날짜, 일정명, 부서를 함께 입력해주세요.</p>
