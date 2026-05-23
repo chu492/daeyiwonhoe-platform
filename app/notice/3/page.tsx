@@ -14,7 +14,7 @@ export default function Notice3() {
         <p style={{ color: "#aaa", fontSize: "13px", marginBottom: "32px" }}>2026.05.15 · 대의원회</p>
         <div style={{ background: "white", borderRadius: "16px", padding: "32px", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", lineHeight: "1.8", color: "#333", fontSize: "15px" }}>
           <p>안녕하세요, 대의원회입니다.</p><br/>
-          <p>학년별 보드 사용 방법을 안내드립니다.</p><br/>
+          <p><strong>학년별 보드</strong> 사용 방법을 안내드립니다.</p><br/>
           <h3 style={{ color: "#1E3A5F", marginBottom: "12px" }}>📋 보드 구성</h3>
           <p>• <strong>1학년 / 2학년 / 3학년</strong> 총 3개 열로 구성되어 있습니다.</p>
           <p>• 각 열에는 해당 학년 대의원의 업무 카드가 표시됩니다.</p><br/>
