@@ -1,4 +1,33 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export default function Home() {
+  const [today, setToday] = useState("");
+  const [weekCount, setWeekCount] = useState(0);
+
+  useEffect(() => {
+    const now = new Date();
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    setToday(`${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}요일`);
+
+    fetch("/api/calendar")
+      .then((r) => r.json())
+      .then((data) => {
+        if (!Array.isArray(data)) return;
+        const start = new Date();
+        start.setDate(start.getDate() - start.getDay());
+        const end = new Date(start);
+        end.setDate(start.getDate() + 6);
+        const count = data.filter((e: any) => {
+          if (!e.date) return false;
+          const d = new Date(e.date);
+          return d >= start && d <= end;
+        }).length;
+        setWeekCount(count);
+      });
+  }, []);
+
   return (
     <main style={{ fontFamily: "sans-serif", background: "#f0f4ff", minHeight: "100vh" }}>
 
@@ -34,9 +63,9 @@ export default function Home() {
       {/* 요약 카드 */}
       <section style={{ display: "flex", gap: "20px", padding: "0 48px 40px" }}>
         {[
-          { icon: "📅", label: "이번 주 일정", value: "3개" },
           { icon: "👥", label: "전체 대의원", value: "40명" },
-          { icon: "🏛️", label: "다음 대의원회 회의", value: "D-9" }
+          { icon: "📆", label: "오늘", value: today || "로딩 중..." },
+          { icon: "📅", label: "이번 주 일정", value: `${weekCount}개` },
         ].map((card, i) => (
           <div key={i} style={{ flex: 1, background: "white", borderRadius: "16px", padding: "28px", display: "flex", alignItems: "center", gap: "16px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>
             <span style={{ fontSize: "36px" }}>{card.icon}</span>
@@ -54,8 +83,8 @@ export default function Home() {
           📢 공지사항
         </h2>
         {[
-          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.20", id: "1" },
-          { title: "플랫폼 사용방법 안내", date: "2026.05.18", id: "2" },
+          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.15", id: "1" },
+          { title: "플랫폼 사용방법 안내", date: "2026.05.15", id: "2" },
           { title: "학년별 보드 사용 방법 공지", date: "2026.05.15", id: "3" }
         ].map((notice, i) => (
           <a key={i} href={`/notice/${notice.id}`} style={{ textDecoration: "none" }}>
