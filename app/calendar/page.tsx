@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Calendar() {
   const [selected, setSelected] = useState("전체");
@@ -7,6 +7,8 @@ export default function Calendar() {
   const [newDate, setNewDate] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [newDept, setNewDept] = useState("대의원회");
+  const [events, setEvents] = useState<{id: string, date: string, title: string, department: string, color: string}[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const deptColors: { [key: string]: string } = {
     "대의원회": "#2B7FFF",
@@ -18,21 +20,31 @@ export default function Calendar() {
     "생활혁신부": "#06B6D4",
   };
 
-  const [events, setEvents] = useState<{date: string, title: string, department: string, color: string}[]>([]);
+  useEffect(() => {
+    fetch("/api/calendar")
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          const colored = data.map((e: any) => ({ ...e, color: deptColors[e.department] || "#2B7FFF" }));
+          setEvents(colored);
+        }
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, []);
 
   const filtered = selected === "전체" ? events : events.filter(e => e.department === selected);
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     if (!newDate || !newTitle) return;
-    setEvents([...events, {
-      date: newDate,
-      title: newTitle,
-      department: newDept,
-      color: deptColors[newDept]
-    }]);
-    setNewDate("");
-    setNewTitle("");
-    setNewDept("대의원회");
+    const res = await fetch("/api/calendar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ date: newDate, title: newTitle, department: newDept }),
+    });
+    const data = await res.json();
+    setEvents([...events, { id: data.id, date: newDate, title: newTitle, department: newDept, color: deptColors[newDept] }]);
+    setNewDate(""); setNewTitle(""); setNewDept("대의원회");
     setShowForm(false);
   };
 
@@ -59,7 +71,9 @@ export default function Calendar() {
         ))}
       </section>
       <section style={{ padding: "0 48px 48px" }}>
-        {filtered.length === 0 ? (
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "48px", color: "#aaa", fontSize: "15px" }}>불러오는 중...</div>
+        ) : filtered.length === 0 ? (
           <div style={{ textAlign: "center", padding: "48px", color: "#aaa", fontSize: "15px" }}>등록된 일정이 없어요</div>
         ) : (
           filtered.map((event, i) => (
