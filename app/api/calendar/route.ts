@@ -18,12 +18,21 @@ export async function GET() {
       return NextResponse.json({ error: data }, { status: res.status });
     }
 
-    const events = data.records.map((record: any) => ({
-      id: record.id,
-      date: record.fields["날짜"] || "",
-      title: record.fields["일정명"] || "",
-      department: record.fields["부서"] || "",
-    }));
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const events = data.records
+      .map((record: any) => ({
+        id: record.id,
+        date: record.fields["날짜"] || "",
+        title: record.fields["일정명"] || "",
+        department: record.fields["부서"] || "",
+      }))
+      .filter((event: any) => {
+        if (!event.date) return false;
+        return new Date(event.date) >= oneWeekAgo;
+      });
+
     return NextResponse.json(events);
   } catch (error) {
     return NextResponse.json({ error: String(error) }, { status: 500 });
