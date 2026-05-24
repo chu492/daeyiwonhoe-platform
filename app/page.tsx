@@ -86,9 +86,9 @@ export default function Home() {
           📢 공지사항
         </h2>
         {[
-          { title: "플랫폼 사용방법 안내", date: "2026.05.18", id: "2" },
-          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.20", id: "1" },
-          { title: "학년별 보드 사용 방법 공지", date: "2026.05.15", id: "3" }
+          { title: "플랫폼 사용방법 안내", date: "2026.05.19", id: "2" },
+          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.19", id: "1" },
+          { title: "학년별 보드 사용 방법 공지", date: "2026.05.19", id: "3" }
         ].map((notice, i) => (
           <a key={i} href={`/notice/${notice.id}`} style={{ textDecoration: "none" }}>
             <div style={{ background: "white", borderRadius: "12px", padding: "20px 24px", borderLeft: "4px solid #2B7FFF", marginBottom: "12px", display: "flex", justifyContent: "space-between", alignItems: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", cursor: "pointer" }}>
