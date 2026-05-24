@@ -11,14 +11,17 @@ export default function Home() {
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     setToday(`${now.getMonth() + 1}월 ${now.getDate()}일 ${days[now.getDay()]}요일`);
 
-    fetch("/api/calendar")
+    fetch("/api/calendar", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (!Array.isArray(data)) return;
-        const start = new Date();
-        start.setDate(start.getDate() - start.getDay());
+        const now = new Date();
+        const start = new Date(now);
+        start.setDate(now.getDate() - now.getDay());
+        start.setHours(0, 0, 0, 0);
         const end = new Date(start);
         end.setDate(start.getDate() + 6);
+        end.setHours(23, 59, 59, 999);
         const count = data.filter((e: any) => {
           if (!e.date) return false;
           const d = new Date(e.date);
@@ -83,8 +86,8 @@ export default function Home() {
           📢 공지사항
         </h2>
         {[
-          { title: "플랫폼 사용방법 안내", date: "2026.05.15", id: "2" },
-          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.15", id: "1" },
+          { title: "플랫폼 사용방법 안내", date: "2026.05.18", id: "2" },
+          { title: "공동 캘린더 사용 방법 공지", date: "2026.05.20", id: "1" },
           { title: "학년별 보드 사용 방법 공지", date: "2026.05.15", id: "3" }
         ].map((notice, i) => (
           <a key={i} href={`/notice/${notice.id}`} style={{ textDecoration: "none" }}>
